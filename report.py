@@ -131,7 +131,7 @@ def build_embed():
         "fields": [
             {
                 "name": "Repositories",
-                "value": "\\n".join(lines),
+                "value": "\n".join(lines),
                 "inline": False
             }
         ],
