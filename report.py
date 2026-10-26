@@ -108,11 +108,11 @@ def build_embed():
 
     if not rows:
         embed = {
-            "title": "Daily Commit Report",
+            "title": "AzerothCore Modules",
             "description": "No repositories had commits in the last 24 hours.",
             "color": 0x7F8C8D,
             "author": {
-                "name": "Commit Watcher"
+                "name": "AC Commit Watcher"
             },
             "footer": {
                 "text": "Last 24 hours • UTC"
@@ -134,11 +134,11 @@ def build_embed():
         })
 
     embed = {
-        "title": "Daily Commit Report",
+        "title": "AzerothCore Modules",
         "description": "Repositories with new commits in the last 24 hours.",
         "color": overall_embed_color(rows),
         "author": {
-            "name": "Commit Watcher"
+            "name": "AC Commit Watcher"
         },
         "fields": fields,
         "footer": {
