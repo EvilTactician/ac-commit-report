@@ -38,16 +38,31 @@ def get_repo_from_url(url):
         raise ValueError(f"Bad repo URL: {url}")
     return parts[0], parts[1]
 
-def color_for_count(count):
+def repo_emoji(count):
     if count >= 10:
-        return 0x2ECC71  # green
+        return "🟢"
     elif count >= 5:
-        return 0x3498DB  # blue
+        return "🔵"
     elif count >= 2:
-        return 0xF39C12  # orange
+        return "🟠"
     elif count == 1:
+        return "🟡"
+    return "⚪"
+
+def overall_embed_color(rows):
+    if not rows:
+        return 0x7F8C8D  # gray
+
+    highest_count = max(count for count, _ in rows)
+
+    if highest_count >= 10:
+        return 0x2ECC71  # green
+    elif highest_count >= 5:
+        return 0x3498DB  # blue
+    elif highest_count >= 2:
+        return 0xF39C12  # orange
+    else:
         return 0xE67E22  # dark orange
-    return 0x7F8C8D  # gray
 
 def count_commits_last_24h(owner, repo):
     since = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
@@ -110,8 +125,10 @@ def build_embed():
 
     fields = []
     for count, repo_url in rows:
+        emoji = repo_emoji(count)
+        label = f"{count} commit{'s' if count != 1 else ''}"
         fields.append({
-            "name": f"{count} commit{'s' if count != 1 else ''}",
+            "name": f"{emoji} {label}",
             "value": repo_url,
             "inline": False
         })
@@ -119,7 +136,7 @@ def build_embed():
     embed = {
         "title": "Daily Commit Report",
         "description": "Repositories with new commits in the last 24 hours.",
-        "color": color_for_count(rows[0][0]),
+        "color": overall_embed_color(rows),
         "author": {
             "name": "Commit Watcher"
         },
