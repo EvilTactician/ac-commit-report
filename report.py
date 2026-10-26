@@ -100,7 +100,7 @@ def build_embed():
         embed = {
             "title": "AzerothCore modules",
             "description": "No repositories had commits in the last 24 hours.",
-            "color": 0x2ECC71,  # green
+            "color": 0x2ECC71,
             "author": {
                 "name": "AC Commit Watcher"
             },
