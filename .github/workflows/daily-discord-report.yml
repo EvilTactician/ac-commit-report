@@ -2,7 +2,7 @@ name: Daily Discord Commit Report
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # every day at midnight UTC
+    - cron: "0 8 * * *"   # every day at 00:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
