@@ -40,36 +40,23 @@ def get_repo_from_url(url):
 
 def repo_emoji(count):
     if count >= 10:
-        return "🟢"
-    elif count >= 5:
-        return "🔵"
-    elif count >= 2:
-        return "🟠"
-    elif count == 1:
-        return "🟡"
-    return "⚪"
+        return "🔴"
+    return "🟠"
 
-def overall_embed_color(rows):
-    if not rows:
-        return 0x7F8C8D  # gray
-
-    highest_count = max(count for count, _ in rows)
-
-    if highest_count >= 10:
+def overall_embed_color(total_commits):
+    if total_commits == 0:
         return 0x2ECC71  # green
-    elif highest_count >= 5:
-        return 0x3498DB  # blue
-    elif highest_count >= 2:
+    elif total_commits < 10:
         return 0xF39C12  # orange
     else:
-        return 0xE67E22  # dark orange
+        return 0xE74C3C  # red
 
 def count_commits_last_24h(owner, repo):
     since = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
     url = f"https://api.github.com/repos/{owner}/{repo}/commits"
     headers = {
         "Accept": "application/vnd.github+json",
-        "User-Agent": "commit-report-bot",
+        "User-Agent": "ac-commit-watcher",
     }
     if GITHUB_TOKEN:
         headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
@@ -106,11 +93,14 @@ def build_embed():
 
     rows.sort(key=lambda x: (-x[0], x[1]))
 
+    total_commits = sum(count for count, _ in rows)
+    active_repos = len(rows)
+
     if not rows:
         embed = {
-            "title": "AzerothCore Modules",
+            "title": "AzerothCore modules",
             "description": "No repositories had commits in the last 24 hours.",
-            "color": 0x7F8C8D,
+            "color": 0x2ECC71,  # green
             "author": {
                 "name": "AC Commit Watcher"
             },
@@ -123,24 +113,28 @@ def build_embed():
             "embeds": [embed],
         }
 
-    fields = []
+    lines = []
     for count, repo_url in rows:
         emoji = repo_emoji(count)
-        label = f"{count} commit{'s' if count != 1 else ''}"
-        fields.append({
-            "name": f"{emoji} {label}",
-            "value": repo_url,
-            "inline": False
-        })
+        lines.append(f"{emoji} **{count}** — {repo_url}")
 
     embed = {
-        "title": "AzerothCore Modules",
-        "description": "Repositories with new commits in the last 24 hours.",
-        "color": overall_embed_color(rows),
+        "title": "AzerothCore modules",
+        "description": (
+            f"Total commits: **{total_commits}**\n"
+            f"Active repos: **{active_repos}**"
+        ),
+        "color": overall_embed_color(total_commits),
         "author": {
             "name": "AC Commit Watcher"
         },
-        "fields": fields,
+        "fields": [
+            {
+                "name": "Repositories",
+                "value": "\\n".join(lines),
+                "inline": False
+            }
+        ],
         "footer": {
             "text": "Last 24 hours • UTC"
         }
