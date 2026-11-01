@@ -28,6 +28,9 @@ REPOS = [
     "https://github.com/buildthehomelab/wow-mod-ah-bot-plus",
     "https://github.com/buildthehomelab/wow-mod-retail-ah",
     "https://github.com/buildthehomelab/wow-mod-retail-professions",
+    "https://github.com/buildthehomelab/wow-mod-quest-map",
+    "https://github.com/buildthehomelab/wow-mod-forever-journal",
+    "https://github.com/buildthehomelab/wow-addon-DragonUI",
 ]
 
 def get_repo_from_url(url):
