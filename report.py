@@ -31,6 +31,8 @@ REPOS = [
     "https://github.com/buildthehomelab/wow-mod-quest-map",
     "https://github.com/buildthehomelab/wow-mod-forever-journal",
     "https://github.com/buildthehomelab/wow-addon-DragonUI",
+    "https://github.com/NeticSoul/Skada-WotLK-Netic",
+    "https://github.com/jrad7/mod-dungeon-clear-addon",    
 ]
 
 def get_repo_from_url(url):
