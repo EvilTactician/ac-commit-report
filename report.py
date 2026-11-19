@@ -33,7 +33,8 @@ REPOS = [
     "https://github.com/buildthehomelab/wow-addon-DragonUI",
     "https://github.com/Hokken/mod-llm-chatter",    
     "https://github.com/NeticSoul/Skada-WotLK-Netic",
-    "https://github.com/jrad7/mod-dungeon-clear-addon",    
+    "https://github.com/jrad7/mod-dungeon-clear-addon",
+    "https://github.com/NethanosGit/DialogueUI_335",   
 ]
 
 def get_repo_from_url(url):
