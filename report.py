@@ -30,6 +30,7 @@ REPOS = [
     "https://github.com/buildthehomelab/wow-mod-retail-professions",
     "https://github.com/buildthehomelab/wow-mod-quest-map",
     "https://github.com/buildthehomelab/wow-mod-forever-journal",
+    "https://github.com/buildthehomelab/wow-mod-guild-levels",
     "https://github.com/buildthehomelab/wow-addon-DragonUI",
     "https://github.com/Hokken/mod-llm-chatter",    
     "https://github.com/NeticSoul/Skada-WotLK-Netic",
